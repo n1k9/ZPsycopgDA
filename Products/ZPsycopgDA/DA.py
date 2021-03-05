@@ -164,8 +164,11 @@ class Connection(Shared.DC.ZRDB.Connection.Connection):
             # We do not have our physical path (yet)
             # But we need the path to uniquely identify the connection!
             # So, we raise a really ugly error here.
-            assert False, "No physical path available yet"
-        physical_path = ('/'.join(self.getPhysicalPath()))
+            # assert False, "No physical path available yet"
+            import random, string
+            physical_path = (''.join(random.sample(string.ascii_letters, 16)))
+        else:
+            physical_path = ('/'.join(self.getPhysicalPath()))
 
         # TODO: let the psycopg exception propagate, or not?
         self._v_database_connection = dbf(
